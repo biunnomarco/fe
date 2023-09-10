@@ -6,7 +6,7 @@ import ArtistRegistrationPage from './ArtistRegistrationPage'
 const RegistrationPage = () => {
     return (
         <>
-            <Row style={{ width: '100wh', height: '80vh' }}>
+            <Row style={{ width: '100wh', height: '65vh' }}>
                 <div className='col-12 col-md-6 d-flex justify-content-center align-items-center'>
                     <div className='text-center px-5'>
                         <h1>Sei un musicista e cerchi un locale dove esibirti?</h1>

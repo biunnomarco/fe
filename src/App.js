@@ -7,6 +7,7 @@ import MyNav from './Components/MyNav/MyNav'
 import RegistrationPage from './Pages/Registration/RegistrationPage'
 import ArtistRegistrationPage from './Pages/Registration/ArtistRegistrationPage'
 import LocalRegistrationPage from './Pages/Registration/LocalRegistrationPage'
+import AR1 from './Pages/Registration/AR1'
 import MyFooter from './Components/MyFooter/MyFooter'
 import ProtectedRoutes from './Middlewares/ProtectedRoutes';
 
@@ -18,6 +19,7 @@ const App = () => {
       <Routes>
         <Route exact path='/registration' element={<RegistrationPage/>}/>
         <Route path='/artistRegistration' element={<ArtistRegistrationPage/>}/>
+        <Route path='/artistRegistration1' element={<AR1/>}/>
         <Route path='/localRegistration' element={<LocalRegistrationPage/>}/>
         
         <Route path='/login' element={<Login/>}/>
