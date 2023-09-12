@@ -10,6 +10,10 @@ import LocalRegistrationPage from './Pages/Registration/LocalRegistrationPage'
 import AR1 from './Pages/Registration/AR1'
 import MyFooter from './Components/MyFooter/MyFooter'
 import ProtectedRoutes from './Middlewares/ProtectedRoutes';
+import ArtistHomepage from './Pages/Homepages/ArtistHomepages'
+import LocalHomepage from './Pages/Homepages/LocalHomepage'
+import Redirect from './Pages/Redirect'
+import SingleArtistPage from './Pages/SinglePages/SingleArtistPage'
 
 
 const App = () => {
@@ -21,6 +25,7 @@ const App = () => {
         <Route path='/artistRegistration' element={<ArtistRegistrationPage/>}/>
         <Route path='/artistRegistration1' element={<AR1/>}/>
         <Route path='/localRegistration' element={<LocalRegistrationPage/>}/>
+        <Route path='/redirect' element={<Redirect/>} />
         
         <Route path='/login' element={<Login/>}/>
         <Route path='/validator/:id' element={<ValidationPage/>}/>
@@ -28,6 +33,9 @@ const App = () => {
 
         <Route element={<ProtectedRoutes/>}>
           <Route path='/' element={<Homepage />} />
+          <Route path='/singleArtistPage/:id' element={<SingleArtistPage/>} /> 
+          <Route path='/artistHomepage' element={<ArtistHomepage/>} />
+          <Route path='/localHomepage' element={<LocalHomepage/>} />
         </Route>
 
 

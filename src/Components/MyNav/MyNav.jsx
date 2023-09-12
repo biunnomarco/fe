@@ -1,22 +1,26 @@
-import React from 'react'
+import React, { useEffect } from 'react'
 import Container from 'react-bootstrap/Container';
 import Nav from 'react-bootstrap/Nav';
 import Navbar from 'react-bootstrap/Navbar';
 import NavDropdown from 'react-bootstrap/NavDropdown';
 import { Link } from 'react-router-dom';
 import { Button, Form } from 'react-bootstrap';
+import ArtistSearchOffCanvas from '../SearchOffCanvas/ArtistSearchOffCanvas'
+import LocalSearchOffCanvas from '../SearchOffCanvas/LocalSearchOffCanvas'
+import { useSession } from '../../Middlewares/ProtectedRoutes';
 
 const MyNav = () => {
 
+  const session = useSession()
   function logOut() {
     localStorage.removeItem('userLoggedIn')
     window.location.reload();
   }
-
+  
   return (
     <Navbar className="bg-body-tertiary">
       <Container>
-        <Navbar.Brand href="#home">Navbar with text</Navbar.Brand>
+        <Navbar.Brand as={Link} to={'/redirect'} href="#home">GIG ME</Navbar.Brand>
         <Navbar.Toggle />
         <Navbar.Collapse className="justify-content-end">
         <Form className="d-flex">
@@ -30,6 +34,7 @@ const MyNav = () => {
                     <NavDropdown.Item as={Link} to={`/dashboard/${session.id}`}>Your Dashboard</NavDropdown.Item>
                 </NavDropdown> */}
                 <Button onClick={() => logOut()} variant="outline-success" >Log-out</Button>
+                {session.role === 'Artist' ? <ArtistSearchOffCanvas /> : <LocalSearchOffCanvas/>}
               </>
             }
 

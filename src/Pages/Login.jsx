@@ -14,10 +14,14 @@ from 'mdb-react-ui-kit';
 import { Link } from 'react-router-dom';
 import { useDispatch } from 'react-redux';
 import { logIn } from '../Store/loginSlice';
+import { useNavigate } from 'react-router-dom';
+import useSession from '../Middlewares/ProtectedRoutes'
 
 const Login = () => {
 
   const dispatch = useDispatch()
+  const session = useSession()
+  const navigate = useNavigate()
   const [email, setEmail] = useState('')
   const [password, setPassword] = useState('')
 
@@ -27,7 +31,9 @@ const Login = () => {
       password: password,
     }
 
-    dispatch(logIn(loginPayload))
+    dispatch(logIn(loginPayload)).then(()=> {
+      navigate('/redirect')
+    })
     console.log(loginPayload)
   }
 

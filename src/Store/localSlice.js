@@ -16,6 +16,9 @@ const localSlice = createSlice({
             .addCase(postLocal.fulfilled, (state, action) => {
                 console.log('ok')
             })
+            .addCase(getLocal.fulfilled, (state, action) => {
+                state.locals = action.payload
+            })
     }
 })
 
@@ -32,4 +35,16 @@ export const postLocal = createAsyncThunk('local/post', async (postPayload) => {
         }
     })
     const res = await postRes.json()
+})
+
+//!GET WITH FILTERS
+export const getLocal = createAsyncThunk('local/get/filter', async (url) => {
+    try {
+        const data = await fetch(`${endpoint}/filter?${url}`)
+        const res = await data.json()
+        console.log(res)
+        return res
+    } catch (error) {
+        console.log(error)
+    }
 })
