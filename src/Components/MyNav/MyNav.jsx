@@ -8,6 +8,8 @@ import { Button, Form } from 'react-bootstrap';
 import ArtistSearchOffCanvas from '../SearchOffCanvas/ArtistSearchOffCanvas'
 import LocalSearchOffCanvas from '../SearchOffCanvas/LocalSearchOffCanvas'
 import { useSession } from '../../Middlewares/ProtectedRoutes';
+import logo from '../../assets/Gigme.png'
+import './MyNav.css'
 
 const MyNav = () => {
 
@@ -18,14 +20,15 @@ const MyNav = () => {
   }
   
   return (
-    <Navbar className="bg-body-tertiary">
-      <Container>
-        <Navbar.Brand as={Link} to={'/redirect'} href="#home">GIG ME</Navbar.Brand>
-        <Navbar.Toggle />
-        <Navbar.Collapse className="justify-content-end">
+    <Navbar style={{backgroundColor:'#FFECD1'}} sticky='top'>
+      <Container > 
+        {session && session.role === 'Artist' ? <ArtistSearchOffCanvas /> : <LocalSearchOffCanvas/>}
+
+        <Navbar.Brand  as={Link} to={'/redirect'} href="#home"><img style={{width: '150px'}} src={logo} alt="" /></Navbar.Brand>
+        
         <Form className="d-flex">
             {!localStorage.getItem('userLoggedIn') ?
-              <Link to={`/login`}><Button variant="outline-success" >Log-In</Button></Link> :
+              <Link to={`/login`}><button class="button-50" role="button">Log In</button></Link> :
               <>
                 {/* <NavDropdown
                   title={<img style={{ width: '45px', height: '45px', borderRadius: '50px', border: 'solid 3px green' }} src={session.avatar || session.photos[0].value } />}
@@ -33,23 +36,20 @@ const MyNav = () => {
                   className='mx-2'>
                     <NavDropdown.Item as={Link} to={`/dashboard/${session.id}`}>Your Dashboard</NavDropdown.Item>
                 </NavDropdown> */}
-                <Button onClick={() => logOut()} variant="outline-success" >Log-out</Button>
-                {session.role === 'Artist' ? <ArtistSearchOffCanvas /> : <LocalSearchOffCanvas/>}
+                
+                <button  onClick={() => logOut()} class="button-50" role="button">Log Out</button>
+                
               </>
             }
-
-            {/* {actualTheme && (
-              <TbBulbOff className='light' style={{ fontSize: '2.5rem' }} onClick={() => selectTheme()} />
-            )}
-            {!actualTheme && (
-              <TbBulb className='dark' style={{ fontSize: '2.5rem' }} onClick={() => selectTheme()} />
-            )} */}
-
+           
           </Form>
-        </Navbar.Collapse>
+        
       </Container>
     </Navbar>
   )
 }
 
 export default MyNav
+
+
+

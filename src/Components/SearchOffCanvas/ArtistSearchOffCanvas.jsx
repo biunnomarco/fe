@@ -16,7 +16,7 @@ function Example() {
     const [name, setName] = useState('');
     const [genre, setGenre] = useState('');
     const [backline, setBackline] = useState('');
-    const [distance, setDistance] = useState('50');
+    const [distance, setDistance] = useState('100000');
     const [type, setType] = useState('');
     const [city, setCity] = useState('');
     const [region, setRegion] = useState('');
@@ -33,7 +33,7 @@ function Example() {
     return (
         <>
             
-            <MDBIcon className='mt-3 ms-3' size='lg' color='success' fas icon="search" onClick={handleShow} />
+            <MDBIcon className='mt-3 ms-3 mb-2 me-5' size='lg' fas icon="search" onClick={handleShow} />
 
             <Offcanvas show={show} onHide={handleClose}>
                 <Offcanvas.Header closeButton>
@@ -49,11 +49,11 @@ function Example() {
                         <MDBInput onChange={(e) => setBackline(e.target.value)} wrapperClass='mb-4' label='Backline' id='form1' type='text' />
                         <MDBRange
                             min='1'
-                            max='200'
+                            max='300'
                             step='5'
                             id='customRange3'
                             label='Set distance'
-                            defaultValue={50}
+                            defaultValue={100000}
                             onChange={(e) => setDistance(e.target.value)}
                         />
                     </div>

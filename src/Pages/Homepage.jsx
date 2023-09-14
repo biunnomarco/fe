@@ -126,7 +126,7 @@ function App() {
                     <MDBCard className='my-5 bg-glass'>
                         <MDBCardBody className='p-3 text-center'>
 
-                            <h2 className="fw-bold mb-5">Register Now</h2>
+                            <h1 style={{fontSize: '48px'}} className="fw-bold mb-5 mt-4">  Register Now</h1>
 
                             <MDBRow>
                                 <MDBCol col='12'>

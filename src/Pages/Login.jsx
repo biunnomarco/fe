@@ -16,6 +16,7 @@ import { useDispatch } from 'react-redux';
 import { logIn } from '../Store/loginSlice';
 import { useNavigate } from 'react-router-dom';
 import useSession from '../Middlewares/ProtectedRoutes'
+import logo from '../assets/Gigme.png'
 
 const Login = () => {
 
@@ -38,22 +39,23 @@ const Login = () => {
   }
 
   return (
-    <div className='d-flex align-items-center'>
+    <div className='d-flex align-items-center' style={{backgroundColor: 'rgb(113 32 14)'}}>
     <MDBContainer className="my-5">
 
       <MDBCard>
-        <MDBRow className='g-0'>
+        <MDBRow className='g-0' >
 
-          <MDBCol className='d-flex align-items-center' md='6'>
-            <MDBCardImage src='https://images.unsplash.com/photo-1429962714451-bb934ecdc4ec?ixlib=rb-1.2.1&auto=format&fit=crop&w=600&q=80' alt="login form" className='rounded-start w-100'/>
+          <MDBCol className='d-flex align-items-center justify-content-center ' md='6'>
+            <MDBCardImage style={{objectFit: 'cover'}} src='https://images.unsplash.com/photo-1429962714451-bb934ecdc4ec?ixlib=rb-1.2.1&auto=format&fit=crop&w=600&q=80' alt="login form" className='rounded-start w-100'/>
           </MDBCol>
 
           <MDBCol md='6'>
-            <MDBCardBody className='d-flex flex-column'>
+            <MDBCardBody className='d-flex flex-column' >
 
-              <div className='d-flex flex-row mt-2'>
-                <MDBIcon fas icon="cubes fa-3x me-3" style={{ color: '#ff6219' }}/>
-                <span className="h1 fw-bold mb-0">GIG ME</span>
+              <div className='d-flex flex-row mt-2 justify-content-center'>
+                {/* <MDBIcon fas icon="cubes fa-3x me-3" style={{ color: '#ff6219' }}/> */}
+                {/* <span className="h1 fw-bold mb-0">GIG ME</span> */}
+                <img style={{width: '350px'}} src={logo} alt="" />
               </div>
 
               <h5 className="fw-normal my-4 pb-3" style={{letterSpacing: '1px'}}>Sign into your account</h5>

@@ -1,0 +1,7 @@
+.singleArtistCard:hover {
+    transform: scale(1.2);
+    z-index: 9;
+}
+.singleArtistCard {
+    transition: transform, 1s;
+}

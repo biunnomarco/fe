@@ -24,15 +24,22 @@ function Example() {
     const handleShow = () => setShow(true);
 
     const createUrl = () => {
-        const url = `name=${name}&genre=${genre}&instrument=${instrument}&distance=${distance}&lat=45.5489856&lon=9.1608651&members=${members}&region=${region}&city=${city}`
+        const url = `name=${name}&genre=${genre}&instruments=${instrument}&distance=${distance}&lat=45.5489856&lon=9.1608651&members=${members}&region=${region}&city=${city}`
         dispatch(getArtist(url))
+        setMembers('')
+        setName('')
+        setGenre('')
+        setInstrument('')
+        setDistance('50')
+        setRegion('')
+        setCity('')
         console.log(url)
     }
 
     return (
         <>
             
-            <MDBIcon className='mt-3 ms-3' size='lg' color='success' fas icon="search" onClick={handleShow} />
+            <MDBIcon className='mt-3 ms-3 mb-2 me-5' size='lg'  fas icon="search" onClick={handleShow} />
 
             <Offcanvas show={show} onHide={handleClose}>
                 <Offcanvas.Header closeButton>
