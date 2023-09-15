@@ -1,0 +1,25 @@
+.pinkBtn {
+    background-color: rgb(255 216 228) !important;
+    color: black !important;
+    margin: 2px !important;
+}
+
+.orangeBg {
+    background-color: #ffaa5e;
+    color: #203c56
+}
+
+.blueBg {
+   background-color: #203c56;
+   color: #FF7D00 ; 
+}
+
+.brownBtn {
+    background-color: #78290F !important;
+   color: #fffbf7 !important; 
+}
+
+.salmonBtn {
+    background-color: rgb(198 109 111) !important;
+    color: white !important;
+}

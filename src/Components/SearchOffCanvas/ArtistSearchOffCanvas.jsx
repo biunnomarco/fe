@@ -16,7 +16,7 @@ function Example() {
     const [name, setName] = useState('');
     const [genre, setGenre] = useState('');
     const [backline, setBackline] = useState('');
-    const [distance, setDistance] = useState('100000');
+    const [distance, setDistance] = useState('300');
     const [type, setType] = useState('');
     const [city, setCity] = useState('');
     const [region, setRegion] = useState('');
@@ -33,7 +33,7 @@ function Example() {
     return (
         <>
             
-            <MDBIcon className='mt-3 ms-3 mb-2 me-5' size='lg' fas icon="search" onClick={handleShow} />
+            <MDBIcon className='mt-3 ms-2 mb-2 me-2' size='lg' fas icon="search" onClick={handleShow} />
 
             <Offcanvas show={show} onHide={handleClose}>
                 <Offcanvas.Header closeButton>
@@ -53,7 +53,7 @@ function Example() {
                             step='5'
                             id='customRange3'
                             label='Set distance'
-                            defaultValue={100000}
+                            defaultValue={300}
                             onChange={(e) => setDistance(e.target.value)}
                         />
                     </div>

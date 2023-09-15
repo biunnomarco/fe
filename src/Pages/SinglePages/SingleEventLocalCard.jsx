@@ -1,27 +1,27 @@
 import React from 'react'
 import { Card, Button, Row, Col } from 'react-bootstrap';
 import { MDBIcon } from 'mdb-react-ui-kit';
+import '../../ColorsCss.css'
 
-const SingleEventCard = (event) => {
+
+const SingleEventLocalCard = (event) => {
     event = event.event
-    console.log(event)
-    return (
-        <Card style={{ width: '18rem' }}>
-            <Card.Img variant="top" src={event.location.proPic} />
+  return (
+    <Card className='my-2' style={{ width: '18rem' }}>
             <Card.Body>
-                <Card.Title>{event.name}</Card.Title>
+                <Card.Title>{event.date}</Card.Title>
+                <Card.Title> <b>{event.name}</b> </Card.Title>
                 <Card.Text>{event.description}</Card.Text>
-                <hr></hr>
                 <Card.Footer>
                     <Row>
                         <Col><em>For: <b>{event.requiredArtist}</b></em></Col>
                         <Col><em><MDBIcon far icon="clock" /> {event.duration}</em></Col>
                     </Row>
                 </Card.Footer>
-                <Button variant="primary">Go somewhere</Button>
+                <Button className='pinkBtn'>Vai all'evento</Button>
             </Card.Body>
         </Card>
-    )
+  )
 }
 
-export default SingleEventCard
+export default SingleEventLocalCard

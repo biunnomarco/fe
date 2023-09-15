@@ -5,7 +5,7 @@ import './SingleArtist.css'
 
 function SingleArtistCard(artist) {
     artist = artist.artist
-    console.log(artist)
+
     return (
         <Card style={{
             backgroundColor: '',

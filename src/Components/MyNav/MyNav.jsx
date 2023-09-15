@@ -14,6 +14,7 @@ import './MyNav.css'
 const MyNav = () => {
 
   const session = useSession()
+  console.log(session)
   function logOut() {
     localStorage.removeItem('userLoggedIn')
     window.location.reload();
@@ -22,9 +23,9 @@ const MyNav = () => {
   return (
     <Navbar style={{backgroundColor:'#FFECD1'}} sticky='top'>
       <Container > 
-        {session && session.role === 'Artist' ? <ArtistSearchOffCanvas /> : <LocalSearchOffCanvas/>}
+        {session && (session.role === 'Artist' ? <ArtistSearchOffCanvas /> : <LocalSearchOffCanvas/>)}
 
-        <Navbar.Brand  as={Link} to={'/redirect'} href="#home"><img style={{width: '150px'}} src={logo} alt="" /></Navbar.Brand>
+        <Navbar.Brand  as={Link} to={'/redirect'} href="#home"><img className='ps-4' style={{width: '200px'}} src={logo} alt="" /></Navbar.Brand>
         
         <Form className="d-flex">
             {!localStorage.getItem('userLoggedIn') ?

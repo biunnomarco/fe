@@ -1,9 +1,12 @@
 import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
+import { act } from "react-dom/test-utils";
 
 const endpoint = `${process.env.REACT_APP_SERVER_BASE_URL}/artist`
 
 const initialState = {
     artists: [],
+    allGeners: [],
+    artistById: [],
     status: 'idle'
 }
 
@@ -21,6 +24,12 @@ const artistSlice = createSlice({
             })
             .addCase(getAllArtist.fulfilled, (state, action) => {
                 state.artists = action.payload
+            })
+            .addCase(getArtistById.fulfilled, (state, action) => {
+                state.artistById = action.payload
+            })
+            .addCase(getAllGenres.fulfilled, (state, action) => {
+                state.allGeners = action.payload
             })
 
     }
@@ -57,6 +66,21 @@ export const postArtist = createAsyncThunk('artist/post', async (postPayload) =>
     const res = await postRes.json()
 })
 
+//!CHANGE PROPIC
+export const changeProPic = createAsyncThunk('artist/patch/proPic', async (patchData) => {
+    console.log(patchData)
+    const form = new FormData()
+    form.append('proPic', patchData.proPic)
+
+    const res = await fetch(`${endpoint}/changeProPic/${patchData.id}`,
+        {
+            method: 'PATCH',
+            body: form,
+            headers: {}
+        })
+    const data = await res.json()
+})
+
 //!GET WITH FILTERS
 export const getArtist = createAsyncThunk('artist/get/filter', async (url) => {
     try {
@@ -75,6 +99,28 @@ export const getAllArtist = createAsyncThunk('artist/get', async (url) => {
         const data = await fetch(`${endpoint}/all`)
         const res = await data.json()
         console.log(res)
+        return res
+    } catch (error) {
+        console.log(error)
+    }
+})
+
+//! GET BY ID
+export const getArtistById = createAsyncThunk('artist/get/id', async (id) => {
+    try {
+        const data = await fetch(`${endpoint}/byId/${id}`)
+        const res = await data.json()
+        return res
+    } catch (error) {
+        console.log(error)
+    }
+})
+
+//!GET ALL GENRES 
+export const getAllGenres = createAsyncThunk('artist/get/genres', async ()=> {
+    try {
+        const data = await fetch(`${endpoint}/allGenres`)
+        const res = await data.json()
         return res
     } catch (error) {
         console.log(error)
