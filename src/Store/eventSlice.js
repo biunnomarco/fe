@@ -4,7 +4,9 @@ const endpoint = `${process.env.REACT_APP_SERVER_BASE_URL}/event`;
 
 const initialState = {
     events: [],
-    status: 'idle'
+    eventById: [],
+    status: 'idle',
+    candidatures: [],
 }
 
 const eventSlice = createSlice({
@@ -15,6 +17,12 @@ const eventSlice = createSlice({
         builder
             .addCase(getAllEvents.fulfilled, (state, action) => {
                 state.events = action.payload
+            })
+            .addCase(getEventById.fulfilled, (state, action) => {
+                state.eventById = action.payload
+            })
+            .addCase(allArtistCandidatures.fulfilled, (state, action) =>{
+                state.candidatures = action.payload
             })
     }
 })
@@ -41,6 +49,43 @@ export const postEvent = createAsyncThunk('event/post', async (postPayload) => {
             }
         });
         const res = await postRes.json()
+    } catch (error) {
+        console.log(error)
+    }
+})
+
+
+export const candidateToEvent = createAsyncThunk('event/candidate', async(data) =>{
+    console.log(data)
+    try {
+        const postRes = await fetch(`${endpoint}/candidate?eventId=${data.eventId.eventId}&artistId=${data.artistId}`, {
+            method: "POST",
+            body: JSON.stringify(data.postPayload),
+            headers: {
+                'Content-Type': 'application/json'
+            }
+        });
+        const res = await postRes.json()
+    } catch (error) {
+        console.log(error)
+    }
+})
+
+export const getEventById = createAsyncThunk('eventById/get', async(id)=> {
+    try {
+        const data = await fetch(`${endpoint}/eventById/${id}`)
+        const res = await data.json()
+        return res
+    } catch (error) {
+        console.log(error)
+    }
+})
+
+export const allArtistCandidatures = createAsyncThunk('candidatures/artistId', async(id)=> {
+    try {
+        const data = await fetch(`${endpoint}/artistCandidature/${id}`)
+        const res = await data.json()
+        return res
     } catch (error) {
         console.log(error)
     }

@@ -8,7 +8,7 @@ const SingleArtistPage = () => {
 
   const dispatch = useDispatch()
   const artist = useSelector(state => state.artists.artistById)
-  console.log(artist)
+  
 
   useEffect(() => {
     dispatch(getArtistById(id))

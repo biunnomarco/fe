@@ -17,6 +17,7 @@ import { logIn } from '../Store/loginSlice';
 import { useNavigate } from 'react-router-dom';
 import useSession from '../Middlewares/ProtectedRoutes'
 import logo from '../assets/Gigme.png'
+import logInPic from '../assets/login.png'
 
 const Login = () => {
 
@@ -39,14 +40,14 @@ const Login = () => {
   }
 
   return (
-    <div className='d-flex align-items-center' style={{backgroundColor: 'rgb(113 32 14)'}}>
+    <div className='d-flex align-items-center bg-primary'>
     <MDBContainer className="my-5">
 
       <MDBCard>
         <MDBRow className='g-0' >
 
           <MDBCol className='d-flex align-items-center justify-content-center ' md='6'>
-            <MDBCardImage style={{objectFit: 'cover'}} src='https://images.unsplash.com/photo-1429962714451-bb934ecdc4ec?ixlib=rb-1.2.1&auto=format&fit=crop&w=600&q=80' alt="login form" className='rounded-start w-100'/>
+            <MDBCardImage style={{objectFit: 'cover'}} src={logInPic} alt="login form" className='rounded-start w-100'/>
           </MDBCol>
 
           <MDBCol md='6'>
@@ -70,12 +71,12 @@ const Login = () => {
                 />
 
               <MDBBtn 
-                className="mb-4 px-5" color='dark' size='lg'
+                className="mb-4 px-5" color='primary' size='lg'
                 onClick={()=> sendLogin()}
               >
                 Login </MDBBtn>
               <a className="small text-muted" href="#!">Forgot password?</a>
-              <p className="mb-5 pb-lg-2" style={{color: '#393f81'}}>Don't have an account? <Link to={'/registration'} href="#!" style={{color: '#393f81'}}>Register here</Link></p>
+              <p className="mb-5 pb-lg-2" style={{color: '#393f81'}}>Don't have an account? <Link to={'/'} href="#!" style={{color: '#393f81'}}>Register here</Link></p>
 
               <div className='d-flex flex-row justify-content-start'>
                 <a href="#!" className="small text-muted me-1">Terms of use.</a>

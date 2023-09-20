@@ -31,7 +31,7 @@ const LocalHomepage = () => {
   useEffect(() => {
     dispatch(getAllArtist())
     dispatch(getLocalById(session.id))
-    console.log(dashboard)
+  
   }, [])
 
   const toggleEvent = () => {

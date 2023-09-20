@@ -3,7 +3,7 @@ import Button from 'react-bootstrap/Button';
 import Offcanvas from 'react-bootstrap/Offcanvas';
 import { MDBBtn, MDBInput, MDBIcon } from 'mdb-react-ui-kit';
 import { useDispatch } from 'react-redux';
-import { getLocal } from '../../Store/localSlice';
+import { getAllLocal, getLocal } from '../../Store/localSlice';
 import { MDBRange, MDBRadio } from 'mdb-react-ui-kit';
 import { useSession } from '../../Middlewares/ProtectedRoutes';
 
@@ -16,7 +16,7 @@ function Example() {
     const [name, setName] = useState('');
     const [genre, setGenre] = useState('');
     const [backline, setBackline] = useState('');
-    const [distance, setDistance] = useState('300');
+    const [distance, setDistance] = useState(100000);
     const [type, setType] = useState('');
     const [city, setCity] = useState('');
     const [region, setRegion] = useState('');
@@ -30,6 +30,16 @@ function Example() {
         console.log(url)
     }
 
+    const resetfilter = () => {
+        setName('')
+        setGenre('')
+        setBackline('')
+        setDistance(1000000)
+        setRegion('')
+        setCity('')
+        setType('')
+        dispatch(getAllLocal())
+    }
     return (
         <>
             
@@ -42,18 +52,18 @@ function Example() {
                 <Offcanvas.Body>
                     <h3>Filter</h3>
                     <div>
-                        <MDBInput onChange={(e) => setName(e.target.value)} wrapperClass='mb-4' label='Name' id='form1' type='text' />
-                        <MDBInput onChange={(e) => setType(e.target.value)} label='Local Type' id='form1' type='text' />
+                        <MDBInput onChange={(e) => setName(e.target.value)} value={name} wrapperClass='mb-4' label='Name' id='form1' type='text' />
+                        <MDBInput onChange={(e) => setType(e.target.value)} value={type} label='Local Type' id='form1' type='text' />
                         <span style={{fontSize: '0.6rem' }}> <em>Es. pizzeria, pub, bar ecc</em> </span>
-                        <MDBInput onChange={(e) => setGenre(e.target.value)} wrapperClass='mb-4 mt-3' label='Genre' id='form1' type='text' />
-                        <MDBInput onChange={(e) => setBackline(e.target.value)} wrapperClass='mb-4' label='Backline' id='form1' type='text' />
+                        <MDBInput onChange={(e) => setGenre(e.target.value)} value={genre} wrapperClass='mb-4 mt-3' label='Genre' id='form1' type='text' />
+                        <MDBInput onChange={(e) => setBackline(e.target.value)} value={backline} wrapperClass='mb-4' label='Backline' id='form1' type='text' />
                         <MDBRange
                             min='1'
                             max='300'
                             step='5'
                             id='customRange3'
                             label='Set distance'
-                            defaultValue={300}
+                            /* defaultValue={300} */
                             onChange={(e) => setDistance(e.target.value)}
                         />
                     </div>
@@ -62,7 +72,10 @@ function Example() {
                         <MDBInput onChange={(e) => setCity(e.target.value)} wrapperClass='mb-4' label='City' id='form1' type='text' />
 
                     </div>
+                    <div className='d-flex gap-3'>
                     <MDBBtn color='success' onClick={() => createUrl()}>Search</MDBBtn>
+                    <MDBBtn color='primary' onClick={() => resetfilter()}>Elimina Filtri</MDBBtn>
+                    </div>
                 </Offcanvas.Body>
             </Offcanvas>
         </>

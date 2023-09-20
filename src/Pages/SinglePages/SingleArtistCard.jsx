@@ -26,21 +26,27 @@ function SingleArtistCard(artist) {
                     {artist.members === '1' && (<span><b>Solo</b></span>)}
                     {artist.members > '1' && (<span><b>Band:</b> {artist.members} components</span>)}
                     <br />
-                    <span><b>Genre: </b></span>
-                    {artist.genre.map((genre, i) => {
-                        const genToUp = genre.charAt(0).toUpperCase() + genre.slice(1);
-                        return (
-                            <>
-                                {i + 1 !== artist.genre.length && (
-                                    <span>{genToUp}, </span>
-                                )}
-                                {i + 1 === artist.genre.length && (
-                                    <span>{genToUp}</span>
-                                )}
+                    {artist.genre.length > 0 && (
+                        <>
+                            <span><b>Genre: </b></span>
+                            {artist.genre.map((genre, i) => {
+                                const genToUp = genre.charAt(0).toUpperCase() + genre.slice(1);
+                                return (
+                                    <>
+                                        {i + 1 !== artist.genre.length && (
+                                            <span>{genToUp}, </span>
+                                        )}
+                                        {i + 1 === artist.genre.length && (
+                                            <span>{genToUp}</span>
+                                        )}
 
-                            </>
-                        )
-                    })}
+                                    </>
+                                )
+                            })}
+                        </>
+                    )}
+
+
                     <br />
                     {artist.instruments.length > 0 && (
                         <>

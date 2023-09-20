@@ -1,4 +1,5 @@
 import { createSlice, createAsyncThunk } from "@reduxjs/toolkit"
+import { Form } from "react-router-dom";
 
 const endpoint = `${process.env.REACT_APP_SERVER_BASE_URL}/local`;
 
@@ -23,6 +24,9 @@ const localSlice = createSlice({
             .addCase(getLocalById.fulfilled, (state, action) => {
                 state.loggedLocal = action.payload
             })
+            .addCase(getAllLocal.fulfilled, (state, action) => {
+                state.locals = action.payload
+            })
     }
 })
 
@@ -31,12 +35,30 @@ export default localSlice.reducer
 export const postLocal = createAsyncThunk('local/post', async (postPayload) => {
     console.log(postPayload)
 
+    const data = new FormData()
+    data.append('email', postPayload.email)
+    data.append('password', postPayload.password)
+    data.append('name', postPayload.name)
+    data.append('favouriteGenre', postPayload.favouriteGenre)
+    data.append('region', postPayload.region)
+    data.append('city', postPayload.city)
+    data.append('localType', postPayload.localType)
+    data.append('address', postPayload.address)
+    data.append('backline', postPayload.backline)
+    data.append('lat', postPayload.lat)
+    data.append('lon', postPayload.lon)
+    data.append('description', postPayload.description)
+    data.append('proPic', postPayload.proPic)
+    data.append('instagram', postPayload.instagram)
+    data.append('facebook', postPayload.facebook)
+
+
     const postRes = await fetch(`${endpoint}/register`, {
         method: "POST",
-        body: JSON.stringify(postPayload),
-        headers: {
+        body: data,
+        /* headers: {
             'Content-Type': 'application/json'
-        }
+        } */
     })
     const res = await postRes.json()
 })
@@ -72,6 +94,18 @@ export const getLocalById = createAsyncThunk('local/get/id', async(id) => {
 export const getLocal = createAsyncThunk('local/get/filter', async (url) => {
     try {
         const data = await fetch(`${endpoint}/filter?${url}`)
+        const res = await data.json()
+        console.log(res)
+        return res
+    } catch (error) {
+        console.log(error)
+    }
+})
+
+//! GET ALL LOCALS
+export const getAllLocal = createAsyncThunk('local/get', async () => {
+    try {
+        const data = await fetch(`${endpoint}/all`)
         const res = await data.json()
         console.log(res)
         return res

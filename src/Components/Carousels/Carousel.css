@@ -1,0 +1,21 @@
+.carousel-control-next {
+    color: black !important;
+   padding-left: 100px !important;
+}
+.carousel-control-next-icon{
+    padding-left: 40px;
+}
+.carousel-control-prev {
+    color: black !important;
+    padding-right: 100px !important;
+}
+.carousel-control-prev-icon{
+    padding-right: 70px;
+}
+.caro {
+    position: relative;
+}
+.carousel-indicators button {
+   position: absolute;
+   bottom: -50px;
+}

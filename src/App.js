@@ -1,19 +1,22 @@
 import React from 'react'
 import { BrowserRouter, Route, Routes } from 'react-router-dom'
-import Homepage from './Pages/Homepage'
+import ArtistRegister from './Pages/Registration/ArtistRegiser'
 import Login from './Pages/Login'
 import ValidationPage from './Pages/ValidationPage'
 import MyNav from './Components/MyNav/MyNav'
 import RegistrationPage from './Pages/Registration/RegistrationPage'
-import ArtistRegistrationPage from './Pages/Registration/ArtistRegistrationPage'
 import LocalRegistrationPage from './Pages/Registration/LocalRegistrationPage'
-import AR1 from './Pages/Registration/AR1'
 import MyFooter from './Components/MyFooter/MyFooter'
 import ProtectedRoutes from './Middlewares/ProtectedRoutes';
 import ArtistHomepage from './Pages/Homepages/ArtistHomepages'
 import LocalHomepage from './Pages/Homepages/LocalHomepage'
 import Redirect from './Pages/Redirect'
 import SingleArtistPage from './Pages/SinglePages/SingleArtistPage'
+import ValidationWait from './Pages/ValidationWait'
+import LocalRegister from './Pages/Registration/LocalRegister'
+import SingleEventPage from './Pages/SinglePages/SingleEventPage'
+import ArtistDashboard from './Pages/Dashboards/ArtistDashboard'
+import SingleLocalPage from './Pages/SinglePages/SingleLocalPage'
 
 
 const App = () => {
@@ -21,21 +24,25 @@ const App = () => {
     <BrowserRouter>
     <MyNav/>
       <Routes>
-        <Route exact path='/registration' element={<RegistrationPage/>}/>
-        <Route path='/artistRegistration' element={<ArtistRegistrationPage/>}/>
-        <Route path='/artistRegistration1' element={<AR1/>}/>
-        <Route path='/localRegistration' element={<LocalRegistrationPage/>}/>
+        <Route exact path='/' element={<RegistrationPage/>}/>
+        <Route path='/validationWait' element={<ValidationWait/>}/>
+        <Route path='/localRegistration' element={<LocalRegister/>}/>
         <Route path='/redirect' element={<Redirect/>} />
+        <Route path='/artistRegistration' element={<ArtistRegister />} />
+        <Route path='/prova' element={<LocalRegistrationPage />} />
         
         <Route path='/login' element={<Login/>}/>
         <Route path='/validator/:id' element={<ValidationPage/>}/>
         
 
         <Route element={<ProtectedRoutes/>}>
-          <Route path='/' element={<Homepage />} />
+          
+          <Route path='/singleLocalPage/:id' element={<SingleLocalPage/>} /> 
           <Route path='/singleArtistPage/:id' element={<SingleArtistPage/>} /> 
           <Route path='/artistHomepage' element={<ArtistHomepage/>} />
           <Route path='/localHomepage' element={<LocalHomepage/>} />
+          <Route path='/eventPage/:id' element={<SingleEventPage/>} />
+          <Route path='/artistDashboard/:id' element={<ArtistDashboard/>} />
         </Route>
 
 

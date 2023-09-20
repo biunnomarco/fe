@@ -8,28 +8,27 @@ import { Button, Form } from 'react-bootstrap';
 import ArtistSearchOffCanvas from '../SearchOffCanvas/ArtistSearchOffCanvas'
 import LocalSearchOffCanvas from '../SearchOffCanvas/LocalSearchOffCanvas'
 import { useSession } from '../../Middlewares/ProtectedRoutes';
-import logo from '../../assets/Gigme.png'
+import logo from '../../assets/logo1.png'
 import './MyNav.css'
 
 const MyNav = () => {
 
   const session = useSession()
-  console.log(session)
   function logOut() {
     localStorage.removeItem('userLoggedIn')
     window.location.reload();
   }
   
   return (
-    <Navbar style={{backgroundColor:'#FFECD1'}} sticky='top'>
+    <Navbar style={{backgroundColor:'white'}} sticky='top'>
       <Container > 
         {session && (session.role === 'Artist' ? <ArtistSearchOffCanvas /> : <LocalSearchOffCanvas/>)}
 
-        <Navbar.Brand  as={Link} to={'/redirect'} href="#home"><img className='ps-4' style={{width: '200px'}} src={logo} alt="" /></Navbar.Brand>
+        <Navbar.Brand  as={Link} to={'/redirect'} href="#home"><img className='ps-4' style={{width: '80px'}} src={logo} alt="" /> <h2 className='pt-2 text-primary'> <b>ig me</b> </h2> </Navbar.Brand>
         
         <Form className="d-flex">
             {!localStorage.getItem('userLoggedIn') ?
-              <Link to={`/login`}><button class="button-50" role="button">Log In</button></Link> :
+              <Link to={`/login`}><Button size='sm' variant='primary' role="button">Log In</Button></Link> :
               <>
                 {/* <NavDropdown
                   title={<img style={{ width: '45px', height: '45px', borderRadius: '50px', border: 'solid 3px green' }} src={session.avatar || session.photos[0].value } />}
@@ -38,7 +37,7 @@ const MyNav = () => {
                     <NavDropdown.Item as={Link} to={`/dashboard/${session.id}`}>Your Dashboard</NavDropdown.Item>
                 </NavDropdown> */}
                 
-                <button  onClick={() => logOut()} class="button-50" role="button">Log Out</button>
+                <Button size='sm' onClick={() => logOut()} variant='primary' role="button">Log Out</Button>
                 
               </>
             }

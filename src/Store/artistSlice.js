@@ -39,7 +39,7 @@ export default artistSlice.reducer;
 
 export const postArtist = createAsyncThunk('artist/post', async (postPayload) => {
 
-    /*  const data = new FormData()
+     const data = new FormData()
      data.append('email', postPayload.email)
      data.append('password', postPayload.password)
      data.append('members', postPayload.members)
@@ -48,20 +48,23 @@ export const postArtist = createAsyncThunk('artist/post', async (postPayload) =>
      data.append('region', postPayload.region)
      data.append('city', postPayload.city)
      data.append('address', postPayload.address)
-     data.append('instrument', postPayload.instrument)
+     data.append('instruments', postPayload.instruments)
      data.append('lat', postPayload.lat)
      data.append('lon', postPayload.lon)
-     data.append('description', postPayload.description) */
+     data.append('description', postPayload.description)
+     data.append('proPic', postPayload.proPic)
+     data.append('instagram', postPayload.instagram)
+     data.append('facebook', postPayload.facebook)
 
     console.log(postPayload)
 
 
     const postRes = await fetch(`${endpoint}/register`, {
         method: "POST",
-        body: JSON.stringify(postPayload),
-        headers: {
+        body: data,
+        /* headers: {
             'Content-Type': 'application/json'
-        }
+        } */
     });
     const res = await postRes.json()
 })

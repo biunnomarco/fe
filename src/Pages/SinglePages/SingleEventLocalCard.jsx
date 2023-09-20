@@ -5,6 +5,7 @@ import '../../ColorsCss.css'
 
 
 const SingleEventLocalCard = (event) => {
+    
     event = event.event
   return (
     <Card className='my-2' style={{ width: '18rem' }}>
@@ -19,6 +20,7 @@ const SingleEventLocalCard = (event) => {
                     </Row>
                 </Card.Footer>
                 <Button className='pinkBtn'>Vai all'evento</Button>
+                <span>{event.candidates.length}</span>
             </Card.Body>
         </Card>
   )
