@@ -90,3 +90,14 @@ export const allArtistCandidatures = createAsyncThunk('candidatures/artistId', a
         console.log(error)
     }
 })
+
+export const removeCandidature = createAsyncThunk('candidature/remove', async(allData) =>{
+    try {
+        const res = await fetch(`${endpoint}/removeCandidature/${allData.event}/${allData.candidature}`, {
+        method: "DELETE"    
+        })
+        const data = await res.json()
+    } catch (error) {
+        console.log(error)
+    }
+})

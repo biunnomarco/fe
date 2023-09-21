@@ -2,7 +2,6 @@ import React, { useEffect, useState } from 'react'
 import { Link, useParams } from 'react-router-dom'
 import { useDispatch, useSelector } from 'react-redux'
 import { Col, Container, Row } from 'react-bootstrap'
-import { allArtistCandidatures } from '../../Store/eventSlice'
 import {
     MDBTabs,
     MDBTabsItem,
@@ -11,19 +10,17 @@ import {
     MDBTabsPane
 } from 'mdb-react-ui-kit';
 import { useSession } from '../../Middlewares/ProtectedRoutes'
-import CandidatureCard from '../../Components/CandidatureBanner/CandidatureCard'
-import { getArtistById } from '../../Store/artistSlice'
+import { getLocalById } from '../../Store/localSlice';
+import SingleEventLocalCard from '../SinglePages/SingleEventLocalCard';
 
-const ArtistDashboard = () => {
+const LocalDashboard = () => {
     const { id } = useParams()
     const dispatch = useDispatch()
-    const artist = useSelector(state => state.artists.artistById)
-    const candidatures = useSelector(state => state.events.candidatures)
     const session = useSession()
+    const local = useSelector(state => state.locals.loggedLocal)
 
     useEffect(() => {
-        dispatch(getArtistById(id))
-        dispatch(allArtistCandidatures(id))
+        dispatch(getLocalById(id))
     }, [])
 
     const [fillActive, setFillActive] = useState('tab1');
@@ -37,27 +34,28 @@ const ArtistDashboard = () => {
     };
 
     return (
+
         <Container fluid className='py-5 m-3 d-flex row'>
             <Row>
-                <h1 className='mx-5'>{artist.name}</h1>
+                <h1 className='mx-5'>{local.name}</h1>
                 <div className='col-12 col-lg-7 d-flex flex-column'>
-                    <img className='m-auto' style={{ width: '90%', borderRadius: '30px' }} src={artist.proPic} alt="" />
+                    <img className='m-auto' style={{ width: '90%', borderRadius: '30px' }} src={local.proPic} alt="" />
                 </div>
                 <div className='col-12 col-lg-5 py-5' style={{ fontSize: '1.5rem' }}>
                     <h1 className='mb-4'>I tuoi dati personali</h1>
-                    <p><b>Email</b>: {artist.email}</p>
-                    <p><b>Indirizzo: </b>{artist.region} {artist.city} {artist.address}</p>
-                    {artist.genre && (
+                    <p><b>Email</b>: {local.email}</p>
+                    <p><b>Indirizzo: </b>{local.region} {local.city} {local.address}</p>
+                    {local.favouriteGenre && (
                         <>
                             <p><b>I tuoi generi: </b>
-                                {artist.genre.map((genre, i) => {
+                                {local.favouriteGenre.map((genre, i) => {
                                     const genToUp = genre.charAt(0).toUpperCase() + genre.slice(1);
                                     return (
                                         <>
-                                            {i + 1 !== artist.genre.length && (
+                                            {i + 1 !== local.favouriteGenre.length && (
                                                 <span>{genToUp}, </span>
                                             )}
-                                            {i + 1 === artist.genre.length && (
+                                            {i + 1 === local.favouriteGenre.length && (
                                                 <span>{genToUp}</span>
                                             )}
 
@@ -66,18 +64,18 @@ const ArtistDashboard = () => {
                                 })}</p>
                         </>
                     )}
-                    {artist.instruments && (
+                    {local.backline && (
                         <>
                             <p><b>I tuoi strumenti: </b>
 
-                                {artist.instruments.map((instrument, i) => {
+                                {local.backline.map((instrument, i) => {
                                     const insToUp = instrument.charAt(0).toUpperCase() + instrument.slice(1);
                                     return (
                                         <>
-                                            {i + 1 !== artist.instruments.length && (
+                                            {i + 1 !== local.backline.length && (
                                                 <span>{insToUp}, </span>
                                             )}
-                                            {i + 1 === artist.instruments.length && (
+                                            {i + 1 === local.backline.length && (
                                                 <span>{insToUp}</span>
                                             )}
 
@@ -86,14 +84,14 @@ const ArtistDashboard = () => {
                                 })}</p>
                         </>
                     )}
-                    <p><b>Descrizione</b>: {artist.description}</p>
+                    <p><b>Descrizione</b>: {local.description}</p>
                 </div>
             </Row>
 
             <MDBTabs fill className='mb-3'>
                 <MDBTabsItem>
                     <MDBTabsLink onClick={() => handleFillClick('tab1')} active={fillActive === 'tab1'}>
-                        <span style={{ fontSize: '1.3rem' }}>Candidature</span>
+                        <span style={{ fontSize: '1.3rem' }}>I tuoi Eventi</span>
                     </MDBTabsLink>
                 </MDBTabsItem>
                 <MDBTabsItem>
@@ -108,32 +106,34 @@ const ArtistDashboard = () => {
                 <MDBTabsPane show={fillActive === 'tab1'}>
                     <Container className='pt-3'>
                         <Row>
-                            {candidatures && (candidatures.map((candidature) => {
-                                return (
-                                    <>
-                                        <Col>
-                                            <CandidatureCard event={candidature} />
-                                        </Col>
-                                    </>
-                                )
-                            }))}
+                            {local.events && (
+                                local.events.map((event) => {
+                                    return (
+                                        <>
+                                            <Col>
+                                                <SingleEventLocalCard event={event} />
+                                            </Col>
+                                        </>
+                                    )
+                                })
+                            )}
                         </Row>
                     </Container>
                 </MDBTabsPane>
                 <MDBTabsPane show={fillActive === 'tab2'}>
                     <Container className='my-4'>
-                        {artist.reviews && (
-                            artist.reviews.map((review) => {
-                                console.log(review)
+                        {local.reviews && (
+                            local.reviews.map((review) => {
+                               
                                 return (
 
-                                    <div style={{borderBottom: 'solid 1px', borderColor: 'grey'}} className='d-flex align-items-center offset-md-1 mb-4 pb-2'>
+                                    <div style={{ borderBottom: 'solid 1px', borderColor: 'grey' }} className='d-flex align-items-center offset-md-1 mb-4 pb-2'>
                                         <img
                                             style={{ width: '120px', height: '120px', borderRadius: '50%' }}
-                                            src={review.authorLocal.proPic}
+                                            src={review.authorArtist.proPic}
                                             className='mx-2' alt="" />
                                         <div>
-                                            <Link to={`/singleLocalPage/${review.authorLocal._id}`}><h4><b>{review.authorLocal.name}</b></h4></Link>
+                                            <Link to={`/singleArtistPage/${review.authorArtist._id}`}><h4><b>{review.authorArtist.name}</b></h4></Link>
                                             <div><i>"{review.comment}"</i></div>
                                             <div><b>{review.rate}/5</b></div>
                                         </div>
@@ -156,4 +156,4 @@ const ArtistDashboard = () => {
     )
 }
 
-export default ArtistDashboard
+export default LocalDashboard

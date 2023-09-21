@@ -17,6 +17,7 @@ import LocalRegister from './Pages/Registration/LocalRegister'
 import SingleEventPage from './Pages/SinglePages/SingleEventPage'
 import ArtistDashboard from './Pages/Dashboards/ArtistDashboard'
 import SingleLocalPage from './Pages/SinglePages/SingleLocalPage'
+import LocalDashboard from './Pages/Dashboards/LocalDashboard'
 
 
 const App = () => {
@@ -43,6 +44,7 @@ const App = () => {
           <Route path='/localHomepage' element={<LocalHomepage/>} />
           <Route path='/eventPage/:id' element={<SingleEventPage/>} />
           <Route path='/artistDashboard/:id' element={<ArtistDashboard/>} />
+          <Route path='/localDashboard/:id' element={<LocalDashboard/>} />
         </Route>
 
 

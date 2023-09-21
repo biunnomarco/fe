@@ -25,7 +25,7 @@ function Example() {
     const handleShow = () => setShow(true);
 
     const createUrl = () => {
-       const url = `name=${name}&favouriteGenre=${genre}&backline=${backline}&distance=${distance}&lat=${session.lat}&lon=${session.lon}&region=${region}&city=${city}&localType=${type}`
+        const url = `name=${name}&favouriteGenre=${genre}&backline=${backline}&distance=${distance}&lat=${session.lat}&lon=${session.lon}&region=${region}&city=${city}&localType=${type}`
         dispatch(getLocal(url))
         console.log(url)
     }
@@ -42,19 +42,19 @@ function Example() {
     }
     return (
         <>
-            
+
             <MDBIcon className='mt-3 ms-2 mb-2 me-2' size='lg' fas icon="search" onClick={handleShow} />
 
             <Offcanvas show={show} onHide={handleClose}>
                 <Offcanvas.Header closeButton>
-                    <Offcanvas.Title>ArtistSearchOffCanvas</Offcanvas.Title>
+                    <Offcanvas.Title>Cerca tra tutti i locali</Offcanvas.Title>
                 </Offcanvas.Header>
                 <Offcanvas.Body>
-                    <h3>Filter</h3>
+                    <div>*puoi utilizzare uno o più campi di filtraggio</div> <br />
                     <div>
                         <MDBInput onChange={(e) => setName(e.target.value)} value={name} wrapperClass='mb-4' label='Name' id='form1' type='text' />
                         <MDBInput onChange={(e) => setType(e.target.value)} value={type} label='Local Type' id='form1' type='text' />
-                        <span style={{fontSize: '0.6rem' }}> <em>Es. pizzeria, pub, bar ecc</em> </span>
+                        <span style={{ fontSize: '0.6rem' }}> <em>Es. pizzeria, pub, bar ecc</em> </span>
                         <MDBInput onChange={(e) => setGenre(e.target.value)} value={genre} wrapperClass='mb-4 mt-3' label='Genre' id='form1' type='text' />
                         <MDBInput onChange={(e) => setBackline(e.target.value)} value={backline} wrapperClass='mb-4' label='Backline' id='form1' type='text' />
                         <MDBRange
@@ -73,8 +73,8 @@ function Example() {
 
                     </div>
                     <div className='d-flex gap-3'>
-                    <MDBBtn color='success' onClick={() => createUrl()}>Search</MDBBtn>
-                    <MDBBtn color='primary' onClick={() => resetfilter()}>Elimina Filtri</MDBBtn>
+                        <MDBBtn color='success' onClick={() => createUrl()}>Search</MDBBtn>
+                        <MDBBtn color='primary' onClick={() => resetfilter()}>Elimina Filtri</MDBBtn>
                     </div>
                 </Offcanvas.Body>
             </Offcanvas>

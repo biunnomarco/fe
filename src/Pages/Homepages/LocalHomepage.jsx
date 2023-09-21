@@ -9,7 +9,7 @@ import '../../fonts.css'
 import { nanoid } from 'nanoid'
 import { useSession } from '../../Middlewares/ProtectedRoutes'
 import { changeLocalProPic, getLocalById } from '../../Store/localSlice'
-import SingleEventLocalCard from '../SinglePages/SingleEventLocalCard'
+import SingleEventLocalBanner from '../SinglePages/SingleEventLocalBanner'
 import { MDBFile, MDBIcon, MDBBtn } from 'mdb-react-ui-kit'
 import '../../ColorsCss.css'
 
@@ -31,7 +31,7 @@ const LocalHomepage = () => {
   useEffect(() => {
     dispatch(getAllArtist())
     dispatch(getLocalById(session.id))
-  
+
   }, [])
 
   const toggleEvent = () => {
@@ -51,29 +51,13 @@ const LocalHomepage = () => {
   return (
 
 
-    <div className='row orangeBg'>
+    <div className='row'>
 
-      <div className='col-lg-8 col-xl-9 py-3'>
-        {artists.length !== 0 && (
-          <Row className='px-5'>
-            <p className='text-center' style={{ fontSize: '36px'}}>Artists</p>
-            {artists && (artists.map((artist) => {
-              return (
-                <Col key={nanoid()} className='d-flex justify-content-center my-2'>
 
-                  <SingleArtistCard artist={artist} />
-                </Col>
-              )
-            }))}
-          </Row>
-        )}
-      </div>
-
-      
       <div className='col-lg-4 col-xl-3 py-3 blueBg'>
         {dashboard && (
           <>
-            <p className='text-center' style={{ fontSize: '36px' }}>Dashboard</p>
+            <p className='text-center' style={{ fontSize: '36px' }}>{dashboard.name}</p>
 
             <div className='d-flex flex-column align-items-center'>
 
@@ -97,11 +81,12 @@ const LocalHomepage = () => {
 
 
 
-              <div className='h4'>{dashboard.name}</div>
-              <div>
-                `{dashboard.region}, {dashboard.city}, {dashboard.address}`
+              <div className='h4'></div>
+              <div style={{ fontSize: '0.8rem' }} className='d-flex flex-column align-items-center'>
+                <em>{dashboard.region}</em>
+                <em>{dashboard.city}</em>
+                <em>{dashboard.address}</em>
               </div>
-              <div>{dashboard.email}</div>
             </div>
           </>
         )}
@@ -115,12 +100,28 @@ const LocalHomepage = () => {
 
           {dashboard && dashboard.events && (dashboard.events.map((event) => {
             return (
-              <SingleEventLocalCard event={event} />
+              <SingleEventLocalBanner event={event} />
             )
           }))}
         </div>
         {event && (<NewEventModal toggleEvent={toggleEvent} />)}
 
+      </div>
+
+      <div className='col-lg-8 col-xl-9 py-3'>
+        {artists.length !== 0 && (
+          <Row className='px-5'>
+            <p className='text-center' style={{ fontSize: '36px' }}>Artists</p>
+            {artists && (artists.map((artist) => {
+              return (
+                <Col key={nanoid()} className='d-flex justify-content-center my-2'>
+
+                  <SingleArtistCard artist={artist} />
+                </Col>
+              )
+            }))}
+          </Row>
+        )}
       </div>
 
 

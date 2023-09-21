@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import { useParams } from 'react-router-dom'
-import { getEventById } from '../../Store/eventSlice'
+import { getEventById, removeCandidature } from '../../Store/eventSlice'
 import { Container, Button } from 'react-bootstrap'
 import CandidateModal from '../../Components/Modals/CandidateModal'
 import { useSession } from '../../Middlewares/ProtectedRoutes'
@@ -14,32 +14,25 @@ const SingleEventPage = () => {
     const [isCandidate, setIsCandidate] = useState(false)
     const [candidatureId, setCandidatureId] = useState('')
    
+const sendRemove = () => {
+        const allData = {
+            candidature: candidatureId,
+            event: event._id
+        }
 
-    /* useEffect(() => {
-        dispatch(getEventById(id)).then(() => {
-            console.log(event)
-            if (event.candidates) {
-                event.candidates.map((candidate) => {
-                    if (candidate.artist === session.id) { 
-                        console.log(candidate)
-                        setIsCandidate(true)
-                        setCandidatureId(candidate)
-                    }
-                })
-            } else { setIsCandidate(false) } 
-        })
-    }, []) */
+        dispatch(removeCandidature(allData))
+    }
 
     useEffect(() => {
         dispatch(getEventById(id));
-    }, [id]);
+    }, [id, sendRemove]);
     
     useEffect(() => {
         if (event && event.candidates) {
             const candidate = event.candidates.find(candidate => candidate.artist === session.id);
             if (candidate) {
                 setIsCandidate(true);
-                setCandidatureId(candidate.id);
+                setCandidatureId(candidate._id);
             } else {
                 setIsCandidate(false);
                 setCandidatureId(null);
@@ -49,6 +42,8 @@ const SingleEventPage = () => {
             setCandidatureId(null);
         }
     }, [event, session.id]);
+
+    
 
     return (
         <Container>
@@ -66,7 +61,7 @@ const SingleEventPage = () => {
                             <p>{ }</p>
                         </div>
 
-                        {!isCandidate ?  <CandidateModal eventId={event._id}/> : <Button onClick={()=>console.log(event)} variant='danger'>Annulla la candidatura</Button>
+                        {!isCandidate ?  <CandidateModal eventId={event._id}/> : <Button onClick={()=>sendRemove()} variant='danger'>Annulla la candidatura</Button>
                         
                         }
                     </>

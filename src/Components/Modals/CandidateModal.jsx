@@ -4,7 +4,7 @@ import Modal from 'react-bootstrap/Modal';
 import { useSession } from '../../Middlewares/ProtectedRoutes';
 import { useDispatch } from 'react-redux';
 import { candidateToEvent } from '../../Store/eventSlice';
-import { MDBInput } from 'mdb-react-ui-kit';
+import { MDBInput, MDBTextArea } from 'mdb-react-ui-kit';
 
 function CandidateModal(eventId) {
     const [show, setShow] = useState(false);
@@ -27,7 +27,7 @@ function CandidateModal(eventId) {
             }
         }
 
-        dispatch(candidateToEvent(data))
+        dispatch(candidateToEvent(data)).then(()=>handleClose())
     }
 
     return (
@@ -36,12 +36,12 @@ function CandidateModal(eventId) {
                 Candidati
             </Button>
 
-            <Modal show={show} onHide={handleClose}>
+            <Modal centered size='lg' show={show} onHide={handleClose}>
                 <Modal.Header closeButton>
-                    <Modal.Title>Modal heading</Modal.Title>
+                    <Modal.Title>Candidati all'evento</Modal.Title>
                 </Modal.Header>
                 <Modal.Body>
-                    <MDBInput wrapperClass='mb-4' label='Note' id='form1' type='text' onChange={(e) => setNote(e.target.value)} />
+                    <MDBTextArea wrapperClass='mb-4' label='Note' id='form1' type='text' onChange={(e) => setNote(e.target.value)} />
                     <MDBInput wrapperClass='mb-4' label='Cachet' id='form1' type='text' onChange={(e) => setCachet(e.target.value)} />
                 </Modal.Body>
                 <Modal.Footer>

@@ -26,14 +26,13 @@ const ProtectedRoutes = () => {
     const isAuthorized = auth();
     const session = useSession();
     
-    /* useEffect(() => {
-        const local = localStorage.getItem("userLoggedIn")
-        console.log(local)
-        
-        if(!local) {
-            navigate('/login', { replace: true })
-        } 
-    }, [navigate, session]) */
+    useEffect(() => {
+        if (session) {
+            if (!session.isValid) {
+                navigate('/validationWait')
+            }
+        }
+    }, [navigate, session])
     
     
 
