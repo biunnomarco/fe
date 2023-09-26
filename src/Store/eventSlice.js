@@ -1,4 +1,5 @@
 import { createSlice, createAsyncThunk } from "@reduxjs/toolkit"
+import { toast } from "react-toastify";
 
 const endpoint = `${process.env.REACT_APP_SERVER_BASE_URL}/event`;
 
@@ -7,12 +8,17 @@ const initialState = {
     eventById: [],
     status: 'idle',
     candidatures: [],
+    refresh: false,
 }
 
 const eventSlice = createSlice({
     name: 'events',
     initialState,
-    reducers: {},
+    reducers: {
+        refresh(state, action) {
+            state.refresh = !state.refresh
+        }
+    },
     extraReducers: (builder) => {
         builder
             .addCase(getAllEvents.fulfilled, (state, action) => {
@@ -28,6 +34,7 @@ const eventSlice = createSlice({
 })
 
 export default eventSlice.reducer;
+export const {refresh} = eventSlice.actions
 
 export const getAllEvents = createAsyncThunk('event/get/all', async () => {
     try {
@@ -58,7 +65,7 @@ export const postEvent = createAsyncThunk('event/post', async (postPayload) => {
 export const candidateToEvent = createAsyncThunk('event/candidate', async(data) =>{
     console.log(data)
     try {
-        const postRes = await fetch(`${endpoint}/candidate?eventId=${data.eventId.eventId}&artistId=${data.artistId}`, {
+        const postRes = await fetch(`${endpoint}/candidate?eventId=${data.eventId}&artistId=${data.artistId}`, {
             method: "POST",
             body: JSON.stringify(data.postPayload),
             headers: {
@@ -66,6 +73,16 @@ export const candidateToEvent = createAsyncThunk('event/candidate', async(data) 
             }
         });
         const res = await postRes.json()
+        toast('Candidatura effettuata con successo', {
+            position: "top-right",
+            autoClose: 5000,
+            hideProgressBar: false,
+            closeOnClick: true,
+            pauseOnHover: true,
+            draggable: true,
+            progress: undefined,
+            theme: "light",
+            });
     } catch (error) {
         console.log(error)
     }
@@ -97,6 +114,16 @@ export const removeCandidature = createAsyncThunk('candidature/remove', async(al
         method: "DELETE"    
         })
         const data = await res.json()
+        toast('Candidatura rimossa', {
+            position: "top-right",
+            autoClose: 5000,
+            hideProgressBar: false,
+            closeOnClick: true,
+            pauseOnHover: true,
+            draggable: true,
+            progress: undefined,
+            theme: "light",
+            });
     } catch (error) {
         console.log(error)
     }

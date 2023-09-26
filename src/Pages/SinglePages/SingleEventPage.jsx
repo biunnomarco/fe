@@ -3,8 +3,11 @@ import { useDispatch, useSelector } from 'react-redux'
 import { useParams } from 'react-router-dom'
 import { getEventById, removeCandidature } from '../../Store/eventSlice'
 import { Container, Button } from 'react-bootstrap'
-import CandidateModal from '../../Components/Modals/CandidateModal'
+import CandidateModal from '../../Components/Modals/CandidateModal';
 import { useSession } from '../../Middlewares/ProtectedRoutes'
+import MySidebar from '../../Components/Sidebar/MySidebar'
+
+
 
 const SingleEventPage = () => {
     const { id } = useParams()
@@ -13,23 +16,24 @@ const SingleEventPage = () => {
     const event = useSelector(state => state.events.eventById)
     const [isCandidate, setIsCandidate] = useState(false)
     const [candidatureId, setCandidatureId] = useState('')
-   
-const sendRemove = () => {
+
+
+    const sendRemove = () => {
         const allData = {
             candidature: candidatureId,
             event: event._id
         }
 
-        dispatch(removeCandidature(allData))
+        dispatch(removeCandidature(allData)).then(() => dispatch(getEventById(id)))
     }
 
     useEffect(() => {
         dispatch(getEventById(id));
-    }, [id, sendRemove]);
-    
+    }, [id]);
+
     useEffect(() => {
         if (event && event.candidates) {
-            const candidate = event.candidates.find(candidate => candidate.artist === session.id);
+            const candidate = event.candidates.find(candidate => candidate.artist._id === session.id);
             if (candidate) {
                 setIsCandidate(true);
                 setCandidatureId(candidate._id);
@@ -43,30 +47,32 @@ const sendRemove = () => {
         }
     }, [event, session.id]);
 
-    
+
 
     return (
-        <Container>
-            <div>
-                {event.location && (
-                    <>
-                        <img style={{ maxWidth: '500px' }} src={event.location.proPic} alt="" />
+        <Container className='p-5'>
+            
+            {event.location && (
+                <>
+                    <h3 className='text-center pb-4'>Evento: {event.name}</h3>
+                    <div className='d-flex gap-3 flex-wrap align-items-center'>
+                        <img style={{ maxWidth: '500px', borderRadius: '35px' }} src={event.location.proPic} alt="" />
                         <div>
-                            <p>Nome Locale: {event.location.name}</p>
-                            <p>Nome Evento: {event.name}</p>
+                            <p onClick={() => console.log(session.id, isCandidate)}>Nome Locale: {event.location.name}</p>
+
                             <p>Data: {event.date}</p>
                             <p>Durata: {event.duration}</p>
                             <p>Benefits: {event.benefits}</p>
                             <p>Rimborsi: {event.refund}</p>
                             <p>{ }</p>
+                            {!isCandidate ? <CandidateModal eventId={event._id} /> : <Button onClick={() => sendRemove()} variant='danger'>Annulla la candidatura</Button>}
                         </div>
+                    </div>
 
-                        {!isCandidate ?  <CandidateModal eventId={event._id}/> : <Button onClick={()=>sendRemove()} variant='danger'>Annulla la candidatura</Button>
-                        
-                        }
-                    </>
-                )}
-            </div>
+
+                </>
+            )}
+
         </Container>
     )
 }

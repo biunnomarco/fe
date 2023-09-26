@@ -18,7 +18,7 @@ const SingleEventLocalCard = (event) => {
             <div>
                 <b>{event.name}</b>
             </div>
-            <Button as={Link} to={`/eventPage/`}>{event.candidates.length}</Button>
+            <Button as={Link} to={`/eventLocalPage/${event._id}`}>{event.candidates.length}</Button>
         </div>
       )
   

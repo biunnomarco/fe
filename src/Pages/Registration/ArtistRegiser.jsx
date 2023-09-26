@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { MDBRadio } from 'mdb-react-ui-kit';
+import { MDBRadio, MDBTextArea } from 'mdb-react-ui-kit';
 import { FindCoordinates } from '../../Hooks/FindCoordinates';
 import { nanoid } from 'nanoid';
 import JoditEditor from 'jodit-react';
@@ -15,7 +15,7 @@ import {
     MDBCardBody,
     MDBInput,
     MDBCheckbox,
-    MDBIcon
+    MDBIcon,
 }
     from 'mdb-react-ui-kit';
 import { useNavigate } from 'react-router-dom';
@@ -131,16 +131,14 @@ function App() {
 
                 <MDBCol md='6' lg={7} style={{ height: '80vh' }} className='text-center text-md-start d-flex flex-column justify-content-center'>
 
-                    <h1 className="my-5 display-3 fw-bold ls-tight px-3" style={{ color: 'hsl(218, 81%, 95%)' }}>
-                        The best offer <br />
-                        <span style={{ color: 'hsl(218, 81%, 75%)' }}>for your business</span>
+                    <h1 className="my-5 display-3 fw-bold ls-tight px-3" style={{ color: 'hsl(218, 81%, 75%)' }}>
+                        Benvenuto su Gig-Me! <br />
+                        <span style={{ color: 'hsl(218, 81%, 85%)' }}>Registrati ora come musicista</span>
                     </h1>
 
                     <p className='px-3' style={{ color: 'hsl(218, 81%, 85%)' }}>
-                        Lorem ipsum dolor sit amet consectetur adipisicing elit.
-                        Eveniet, itaque accusantium odio, soluta, corrupti aliquam
-                        quibusdam tempora at cupiditate quis eum maiores libero
-                        veritatis? Dicta facilis sint aliquid ipsum atque?
+                       Gig-me è un servizio gratuito che ti permette di entrare in contatto con decine di locali che stanno aspettando solo te!
+                       Registrati ed avrai la possibilità di candidarti a tantissimi eventi scegliendo tra quelli più affini a te, oppure cerca e contatta un locale filtrando in base ai tuoi generi musicali! 
                     </p>
 
                 </MDBCol>
@@ -291,11 +289,12 @@ function App() {
 
                                 <div className="mb-3">
                                     <h4>Aggiungi una descrizione! *</h4>
-                                    <JoditEditor
+                                    {/* <JoditEditor
                                         tabIndex={4}
                                         onBlur={newDescription => setDescription(newDescription)}
                                         onChange={newDescription => { }}
-                                    />
+                                    /> */}
+                                    <MDBTextArea label='Descrizione' type='text' onChange={(e) => setDescription(e.target.value)} />
                                 </div>
                                 <div className='d-flex justify-content-around'>
                                     <MDBBtn onClick={() => goToPrev()}> Previous </MDBBtn>

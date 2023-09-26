@@ -3,7 +3,7 @@ import Button from 'react-bootstrap/Button';
 import Modal from 'react-bootstrap/Modal';
 import { useSession } from '../../Middlewares/ProtectedRoutes';
 import { useDispatch } from 'react-redux';
-import { candidateToEvent } from '../../Store/eventSlice';
+import { candidateToEvent, getEventById } from '../../Store/eventSlice';
 import { MDBInput, MDBTextArea } from 'mdb-react-ui-kit';
 
 function CandidateModal(eventId) {
@@ -19,14 +19,14 @@ function CandidateModal(eventId) {
 
     const sendCandidate = () => {
         const data = {
-            eventId: eventId,
+            eventId: eventId.eventId,
             artistId: session.id,
             postPayload: {
                 cachet: cachet,
                 note: note
             }
         }
-
+        console.log(data)
         dispatch(candidateToEvent(data)).then(()=>handleClose())
     }
 

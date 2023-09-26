@@ -12,6 +12,7 @@ import { changeLocalProPic, getLocalById } from '../../Store/localSlice'
 import SingleEventLocalBanner from '../SinglePages/SingleEventLocalBanner'
 import { MDBFile, MDBIcon, MDBBtn } from 'mdb-react-ui-kit'
 import '../../ColorsCss.css'
+import { refresh } from '../../Store/eventSlice'
 
 
 const LocalHomepage = () => {
@@ -21,6 +22,7 @@ const LocalHomepage = () => {
   const artists = useSelector(state => state.artists.artists)
   const dashboard = useSelector(state => state.locals.loggedLocal)
   const artistsStatus = useSelector(state => state.artists.status)
+  const refresh = useSelector(state => state.events.refresh)
   const [proPic, setProPic] = useState(null)
   const [event, setEvent] = useState(false)
 
@@ -32,7 +34,7 @@ const LocalHomepage = () => {
     dispatch(getAllArtist())
     dispatch(getLocalById(session.id))
 
-  }, [])
+  }, [refresh])
 
   const toggleEvent = () => {
     setEvent(!event)
@@ -98,11 +100,13 @@ const LocalHomepage = () => {
             onClick={() => toggleEvent()}>Create Event
           </Button>
 
+          <div className='d-flex flex-column gap-3'>
           {dashboard && dashboard.events && (dashboard.events.map((event) => {
             return (
               <SingleEventLocalBanner event={event} />
             )
           }))}
+          </div>
         </div>
         {event && (<NewEventModal toggleEvent={toggleEvent} />)}
 
@@ -111,7 +115,7 @@ const LocalHomepage = () => {
       <div className='col-lg-8 col-xl-9 py-3'>
         {artists.length !== 0 && (
           <Row className='px-5'>
-            <p className='text-center' style={{ fontSize: '36px' }}>Artists</p>
+            <p className='text-center' style={{ fontSize: '36px' }}>Artisti</p>
             {artists && (artists.map((artist) => {
               return (
                 <Col key={nanoid()} className='d-flex justify-content-center my-2'>

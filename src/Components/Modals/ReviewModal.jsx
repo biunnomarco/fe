@@ -4,6 +4,7 @@ import { MDBInput, MDBTextArea } from 'mdb-react-ui-kit';
 import { useDispatch } from 'react-redux';
 import { postReview } from '../../Store/reviewSlice';
 import { getLocalById } from '../../Store/localSlice';
+import { getArtistById } from '../../Store/artistSlice';
 
 
 
@@ -40,6 +41,7 @@ function ReviewModal({ author, dest, role }) {
                 dispatch(postReview(allData))
                     .then(()=>handleClose())
                     .then(()=> dispatch(getLocalById(dest)))
+                    .then(()=> dispatch(getArtistById(dest)))
                     .then(()=> setAlert(false))
                     .then(()=> {setRev(''); setRate(null)} )
             }

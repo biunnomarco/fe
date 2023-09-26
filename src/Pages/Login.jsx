@@ -34,8 +34,8 @@ const Login = () => {
     if (login) {
       if (login.statusCode && login.statusCode === 404) { }
       else if (login.statusCode && login.statusCode === 400) { }
+      else if (login.statusCode && login.statusCode === 200) navigate('/redirect')
     }
-    if (!login) navigate('/redirect') 
   }, [login])
 
 

@@ -10,7 +10,7 @@ const CandidatureBanner = ({candidature}) => {
             <b>{candidature.event.date}</b>
         </div>
         <div>
-            <b>{candidature.local.name}</b>
+            <b>{candidature.event.name}</b>
         </div>
         <Button as={Link} to={`/eventPage/${candidature.event._id}`}>Vai</Button>
     </div>

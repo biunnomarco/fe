@@ -1,14 +1,15 @@
 import React, { useEffect, useState } from 'react'
 import { Link, useParams } from 'react-router-dom'
 import { useDispatch, useSelector } from 'react-redux'
-import { Col, Container, Row } from 'react-bootstrap'
+import { Alert, Col, Container, Row } from 'react-bootstrap'
 import { allArtistCandidatures } from '../../Store/eventSlice'
 import {
     MDBTabs,
     MDBTabsItem,
     MDBTabsLink,
     MDBTabsContent,
-    MDBTabsPane
+    MDBTabsPane,
+    MDBIcon
 } from 'mdb-react-ui-kit';
 import { useSession } from '../../Middlewares/ProtectedRoutes'
 import CandidatureCard from '../../Components/CandidatureBanner/CandidatureCard'
@@ -38,15 +39,15 @@ const ArtistDashboard = () => {
 
     return (
         <Container fluid className='py-5 m-3 d-flex row'>
+                <h1 className='text-center mb-4'>{artist.name}</h1>
             <Row>
-                <h1 className='mx-5'>{artist.name}</h1>
                 <div className='col-12 col-lg-7 d-flex flex-column'>
-                    <img className='m-auto' style={{ width: '90%', borderRadius: '30px' }} src={artist.proPic} alt="" />
+                    <img className='m-auto' style={{ width: '60%', borderRadius: '30px' }} src={artist.proPic} alt="" />
                 </div>
-                <div className='col-12 col-lg-5 py-5' style={{ fontSize: '1.5rem' }}>
+                <div className='col-12 col-lg-5 py-5 d-flex flex-column justify-content-center' style={{ fontSize: '1.5rem' }}>
                     <h1 className='mb-4'>I tuoi dati personali</h1>
                     <p><b>Email</b>: {artist.email}</p>
-                    <p><b>Indirizzo: </b>{artist.region} {artist.city} {artist.address}</p>
+                    <p><b>Indirizzo: </b>{artist.region}, {artist.city}, {artist.address}</p>
                     {artist.genre && (
                         <>
                             <p><b>I tuoi generi: </b>
@@ -87,6 +88,8 @@ const ArtistDashboard = () => {
                         </>
                     )}
                     <p><b>Descrizione</b>: {artist.description}</p>
+                    {artist.instagram && (<a href={artist.instagram}><MDBIcon fab icon="instagram" /></a>)}
+              {artist.facebook && (<a href={artist.facebook}><MDBIcon fab icon="facebook" /></a>)}
                 </div>
             </Row>
 
@@ -107,16 +110,19 @@ const ArtistDashboard = () => {
             <MDBTabsContent>
                 <MDBTabsPane show={fillActive === 'tab1'}>
                     <Container className='pt-3'>
-                        <Row>
+                        <Row className='d-flex justify-content-center'>
                             {candidatures && (candidatures.map((candidature) => {
                                 return (
                                     <>
-                                        <Col>
+                                        <Col className='d-flex justify-content-center'>
                                             <CandidatureCard event={candidature} />
                                         </Col>
                                     </>
                                 )
                             }))}
+                            {candidatures && candidatures.length < 1 && (
+                                <Alert className='text-center' variant='danger'>Non hai ancora nessuna candidatura</Alert>
+                            )}
                         </Row>
                     </Container>
                 </MDBTabsPane>
@@ -144,7 +150,10 @@ const ArtistDashboard = () => {
                                 )
                             })
                         )}
+                        {artist.reviews && artist.reviews.length < 1 && (
+                            <Alert className='text-center' variant='danger'>Non hai ancora nessuna recensione</Alert>
 
+                        )}
                     </Container>
 
                 </MDBTabsPane>

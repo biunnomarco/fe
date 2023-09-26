@@ -8,7 +8,8 @@ import {
   MDBTabsItem,
   MDBTabsLink,
   MDBTabsContent,
-  MDBTabsPane
+  MDBTabsPane,
+  MDBIcon
 } from 'mdb-react-ui-kit';
 import SingleEventCard from './SingleEventCard'
 import { Link } from 'react-router-dom'
@@ -41,9 +42,9 @@ const SingleLocalPage = () => {
       {local && local.name && (
         <Container fluid className='py-5 m-3 d-flex row'>
           <Row>
-            <h1 onClick={() => console.log(local)} className='mx-5'>{local.name}</h1>
+            <h1 className='text-center mb-5'>{local.name}</h1>
             <div className='col-12 col-lg-7 d-flex flex-column'>
-              <img className='m-auto' style={{ width: '90%', borderRadius: '30px' }} src={local.proPic} alt="" />
+              <img className='m-auto' style={{ width: '70%', borderRadius: '30px' }} src={local.proPic} alt="" />
             </div>
             <div className='col-12 col-lg-5 py-5' style={{ fontSize: '1.5rem' }}>
               <h1 className='mb-4'>Info</h1>
@@ -89,6 +90,8 @@ const SingleLocalPage = () => {
                 </>
               )}
               <p><b>Descrizione</b>: {local.description}</p>
+              {local.instagram && (<a href={`https://` + local.instagram}><MDBIcon fab icon="instagram" /></a>)}
+              {local.facebook && (<a href={`https://` + local.facebook}><MDBIcon fab icon="facebook" /></a>)}
             </div>
           </Row>
 

@@ -7,7 +7,7 @@ const Redirect = () => {
     const navigate = useNavigate()
 
     useEffect(()=> {
-        window.location.reload()
+        /* window.location.reload() */
         if (session) {
             if (session.role==='Artist') navigate('/artistHomepage')
             if (session.role==='Local') navigate('/localHomepage')

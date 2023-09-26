@@ -7,7 +7,7 @@ import { getAllGenres } from '../../Store/artistSlice';
 import { json } from 'react-router-dom';
 import { MDBInput, MDBCol, MDBRadio, MDBRow, MDBBtn } from 'mdb-react-ui-kit';
 import '../../ColorsCss.css'
-import { postEvent } from '../../Store/eventSlice';
+import { postEvent, refresh } from '../../Store/eventSlice';
 
 function NewEventModal({ toggleEvent }) {
 
@@ -51,7 +51,7 @@ function NewEventModal({ toggleEvent }) {
       date: date,
     }
     console.log(postPayload)
-    dispatch(postEvent(postPayload))
+    dispatch(postEvent(postPayload)).then(()=>dispatch(refresh())).then(()=>toggleEvent())
   }
 
   return (
@@ -114,7 +114,6 @@ function NewEventModal({ toggleEvent }) {
             wrapperClass='mb-4' label='Descrizione evento' id='form1' type='text'
             onChange={(e) => setDescription(e.target.value)}
           />
-          <p>{session.id}</p>
         </Modal.Body>
 
         <Modal.Footer>
