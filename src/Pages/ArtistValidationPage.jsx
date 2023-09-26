@@ -1,8 +1,9 @@
 import React, { useEffect } from 'react'
-import { useParams } from 'react-router-dom'
+import { useNavigate, useParams } from 'react-router-dom'
 
 const ValidationPage = () => {
     const { id } = useParams();
+    const navigate = useNavigate()
     console.log(id);
 
     async function validator() {
@@ -16,10 +17,13 @@ const ValidationPage = () => {
         validator()
     }, [])
 
+    setTimeout(()=> {
+        navigate('/redirect')
+    }, 5000)
 
     return (
         <>
-            <div>
+            <div className='my-5 text-center'>
                 La tua mail è stata confermata, verrai reindirizzato a breve alla pagina di Log In
             </div>
         </>
