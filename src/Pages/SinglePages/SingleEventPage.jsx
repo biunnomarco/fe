@@ -50,21 +50,21 @@ const SingleEventPage = () => {
 
 
     return (
-        <Container className='p-5'>
+        <Container className='py-5'>
             
             {event.location && (
                 <>
                     <h3 className='text-center pb-4'>Evento: {event.name}</h3>
-                    <div className='d-flex gap-3 flex-wrap align-items-center'>
+                    <div className='d-flex gap-4 align-items-center'>
                         <img style={{ maxWidth: '500px', borderRadius: '35px' }} src={event.location.proPic} alt="" />
                         <div>
-                            <p onClick={() => console.log(session.id, isCandidate)}>Nome Locale: {event.location.name}</p>
+                            <p>Nome Locale: {event.location.name}</p>
 
                             <p>Data: {event.date}</p>
                             <p>Durata: {event.duration}</p>
                             <p>Benefits: {event.benefits}</p>
                             <p>Rimborsi: {event.refund}</p>
-                            <p>{ }</p>
+                            <p>Descrizione: {event.description}</p>
                             {!isCandidate ? <CandidateModal eventId={event._id} /> : <Button onClick={() => sendRemove()} variant='danger'>Annulla la candidatura</Button>}
                         </div>
                     </div>

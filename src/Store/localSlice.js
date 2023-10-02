@@ -16,16 +16,34 @@ const localSlice = createSlice({
     extraReducers: (builder) => {
         builder
             .addCase(postLocal.fulfilled, (state, action) => {
-                console.log('ok')
+                state.status = 'idle'
+            })
+            .addCase(postLocal.pending, (state, action) => {
+                state.status = 'pending'
+            })
+            .addCase(postLocal.rejected, (state, action) => {
+                state.status = 'rejected'
             })
             .addCase(getLocal.fulfilled, (state, action) => {
                 state.locals = action.payload
+                state.status = 'idle'
+            })
+            .addCase(getLocal.pending, (state, action) => {
+                state.status = 'pending'
             })
             .addCase(getLocalById.fulfilled, (state, action) => {
                 state.loggedLocal = action.payload
+                state.status = 'idle'
+            })
+            .addCase(getLocalById.pending, (state, action) => {
+                state.status = 'pending'
             })
             .addCase(getAllLocal.fulfilled, (state, action) => {
                 state.locals = action.payload
+                state.status = 'idle'
+            })
+            .addCase(getAllLocal.pending, (state, action) => {
+                state.status = 'pending'
             })
     }
 })
@@ -34,23 +52,34 @@ export default localSlice.reducer
 
 export const postLocal = createAsyncThunk('local/post', async (postPayload) => {
     console.log(postPayload)
+    const favouriteGenre = postPayload.favouriteGenre
+    const backline = postPayload.backline
+    const localType = postPayload.localType
 
     const data = new FormData()
     data.append('email', postPayload.email)
     data.append('password', postPayload.password)
     data.append('name', postPayload.name)
-    data.append('favouriteGenre', postPayload.favouriteGenre)
+    for (let i = 0; i < favouriteGenre.length; i++) {
+        data.append('favouriteGenre', favouriteGenre[i])
+    }
     data.append('region', postPayload.region)
     data.append('city', postPayload.city)
-    data.append('localType', postPayload.localType)
+    for (let i = 0; i < localType.length; i++) {
+        data.append('localType', localType[i])
+        
+    }
     data.append('address', postPayload.address)
-    data.append('backline', postPayload.backline)
+    for (let i = 0; i < backline.length; i++) {
+        data.append('backline', backline[i]) 
+    }
     data.append('lat', postPayload.lat)
     data.append('lon', postPayload.lon)
     data.append('description', postPayload.description)
     data.append('proPic', postPayload.proPic)
     data.append('instagram', postPayload.instagram)
     data.append('facebook', postPayload.facebook)
+
 
 
     const postRes = await fetch(`${endpoint}/register`, {

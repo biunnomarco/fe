@@ -23,12 +23,23 @@ const eventSlice = createSlice({
         builder
             .addCase(getAllEvents.fulfilled, (state, action) => {
                 state.events = action.payload
+                state.status = 'idle'
+            })
+            .addCase(getAllEvents.pending, (state, action) => {
+                state.status = 'pending'
             })
             .addCase(getEventById.fulfilled, (state, action) => {
                 state.eventById = action.payload
+                state.status = 'idle'
+            })
+            .addCase(getEventById.pending, (state, action) => {
+                state.status = 'pending'
             })
             .addCase(allArtistCandidatures.fulfilled, (state, action) =>{
                 state.candidatures = action.payload
+            })
+            .addCase(allArtistCandidatures.pending, (state, action) =>{
+                state.status = 'pending'
             })
     }
 })

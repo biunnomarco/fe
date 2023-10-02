@@ -12,6 +12,7 @@ import { useSession } from '../../Middlewares/ProtectedRoutes'
 import CandidatureBanner from '../../Components/CandidatureBanner/CandidatureBanner'
 import { Link } from 'react-router-dom'
 import '../../ColorsCss.css'
+import { MDBSpinner } from 'mdb-react-ui-kit'
 
 
 
@@ -20,7 +21,9 @@ const ArtistHomepages = () => {
   const dispatch = useDispatch()
   const session = useSession()
   const events = useSelector(state => state.events.events)
+  const eventsStatus = useSelector(state => state.events.status)
   const locals = useSelector(state => state.locals.locals)
+  const localsStatus = useSelector(state => state.locals.status)
   const dashboard = useSelector(state => state.artists.artistById)
   const candidatures = useSelector(state => state.events.candidatures)
   const refresh = useSelector(state => state.events.refresh)
@@ -73,12 +76,22 @@ const ArtistHomepages = () => {
 
 
         <Col className='py-5' xl={9} lg={12}>
-          <Row >
+          {events && eventsStatus === 'pending' && (
+            <MDBSpinner role='status' className='my-5'>
+              <span className='visually-hidden'>Loading...</span>
+            </MDBSpinner>
+          )}
+          {events && (<Row >
             <Col className='d-flex flex-column align-items-center'>
               <EventCarousel events={events} />
             </Col>
-          </Row>
-          <Row className='d-flex justify-content-center text-darkblue'>
+          </Row>)}
+          <Row className='d-flex justify-content-center text-darkblue g-3'>
+            {localsStatus && localsStatus === 'pending' && (
+              <MDBSpinner role='status' className='my-5'>
+                <span className='visually-hidden'>Loading...</span>
+              </MDBSpinner>
+            )}
             {locals && (<>
               <h3 className='my-4 text-center'><b>Locali</b></h3>
               {locals.map((local) => {

@@ -86,7 +86,7 @@ function SingleEvent(event) {
                         <p>Durata: {event.duration}</p>
                         <p>Benefits: {event.benefits}</p>
                         <p>Rimborsi: {event.refund}</p>
-                        <p>{ }</p>
+                        <p>Descrizione: {event.description }</p>
                     </div>
                 </Modal.Body>
                 <Modal.Footer className='flex-column'>

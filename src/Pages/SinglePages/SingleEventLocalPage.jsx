@@ -19,13 +19,14 @@ const SingleEventLocalPage = () => {
             {event && (
                 <Container className='row py-5' fluid style={{ minHeight: '40vh' }}>
                     <h1 className='text-center mb-5'>{event.name}</h1>
-                    <div className='col-12 col-md-6 px-5'>
+                    <div className='col-12 col-md-5 px-5'>
                         <h3>Dettagli evento</h3> <br />
                         <p> Artista richiesto: <b>{event.requiredArtist}</b></p>
                         <p> Data: <b>{event.date}</b></p>
                         <p> Rimborsi: <b>{event.refund}</b></p>
                         <p> Benefits: <b>{event.benefits}</b></p>
                         <p> Durata: <b>{event.duration}</b></p>
+                        <p> Descrizione: <b>{event.description}</b></p>
                         {event.genres && (
                         <>
                             <p>Genere:
@@ -46,7 +47,7 @@ const SingleEventLocalPage = () => {
                         </>
                     )}
                     </div>
-                    <div className='col-12 col-md-6'>
+                    <div className='col-12 col-md-7 d-flex flex-column gap-4'>
                         <h3>Candidati:</h3>
                         {event.candidates && event.candidates.length > 0 && (
                             event.candidates.map((candidate) => {
